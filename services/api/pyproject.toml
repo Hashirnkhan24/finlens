@@ -1,0 +1,26 @@
+[project]
+name = "finlens-api"
+version = "0.1.0"
+description = "FastAPI processing service scaffold for FinLens."
+requires-python = ">=3.13"
+dependencies = [
+  "fastapi[standard]>=0.136.1",
+  "pydantic>=2.0",
+  "pandas>=3.0.3",
+  "polars>=1.0",
+  "openpyxl>=3.1",
+  "pdfplumber>=0.11",
+  "pymupdf>=1.24",
+  "numpy>=2.0",
+  "scipy>=1.14",
+  "statsmodels>=0.14",
+  "scikit-learn>=1.5",
+  "duckdb>=1.0",
+  "celery>=5.4",
+  "redis>=5.0",
+  "sqlalchemy>=2.0",
+  "alembic>=1.13"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
