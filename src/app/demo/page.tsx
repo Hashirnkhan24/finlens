@@ -1,6 +1,10 @@
 import { ArrowRight, Boxes, Building2, Download, FileSpreadsheet, LineChart, PlayCircle } from "lucide-react";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { AuthNav } from "@/components/auth-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { demoWorkspaces } from "@/lib/demo-data";
+import { isOnboardingComplete } from "@/lib/onboarding";
 
 const industryIcon = {
   manufacturing: Boxes,
@@ -8,7 +12,13 @@ const industryIcon = {
   saas: LineChart
 };
 
-export default function DemoPage() {
+export default async function DemoPage() {
+  const user = await currentUser();
+
+  if (!isOnboardingComplete(user?.publicMetadata)) {
+    redirect("/onboarding" as never);
+  }
+
   return (
     <main className="site-shell">
       <header className="topbar">
@@ -21,6 +31,7 @@ export default function DemoPage() {
         </a>
         <div className="topbar-actions">
           <ThemeToggle />
+          <AuthNav />
           <a className="button ghost compact" href="/">
             Back to Landing
           </a>

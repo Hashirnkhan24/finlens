@@ -10,3 +10,6 @@ dist/
 services/api/.venv/
 __pycache__/
 .pytest_cache/
+
+# clerk configuration (can include secrets)
+/.clerk/

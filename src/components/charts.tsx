@@ -17,10 +17,24 @@ import {
   ResponsiveContainer,
   Legend
 } from "recharts";
+import type { ReactNode } from "react";
 import type { BudgetVariance, DemoWorkspace, Financials, Scenario } from "@/lib/types";
 import { formatInr } from "@/lib/finance";
 
-function ChartTooltip({ active, payload, label, formatter }: any) {
+type ChartTooltipPayload = {
+  color?: string;
+  name?: ReactNode;
+  value?: number | string;
+};
+
+type ChartTooltipProps = {
+  active?: boolean;
+  payload?: ChartTooltipPayload[];
+  label?: ReactNode;
+  formatter?: (value: number) => ReactNode;
+};
+
+function ChartTooltip({ active, payload, label, formatter }: ChartTooltipProps) {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
@@ -33,9 +47,9 @@ function ChartTooltip({ active, payload, label, formatter }: any) {
       color: "var(--text)"
     }}>
       <div style={{ fontWeight: 650, marginBottom: 4, color: "var(--faint)" }}>{label}</div>
-      {payload.map((entry: any, i: number) => (
+      {payload.map((entry, i) => (
         <div key={i} style={{ color: entry.color, marginTop: 2 }}>
-          {entry.name}: {formatter ? formatter(entry.value) : entry.value}
+          {entry.name}: {formatter && typeof entry.value === "number" ? formatter(entry.value) : entry.value}
         </div>
       ))}
     </div>
@@ -130,8 +144,6 @@ export function ForecastLineChart({ workspace }: { workspace: DemoWorkspace }) {
     Actual: p.actual ?? null,
     Forecast: p.forecast,
   }));
-
-  const actualData = data.filter(d => d.Actual !== null);
 
   return (
     <div className="ops-panel">

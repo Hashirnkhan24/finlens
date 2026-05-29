@@ -17,6 +17,7 @@ import {
   TrendingUp
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { AuthNav } from "@/components/auth-nav";
 import { demoWorkspaces } from "@/lib/demo-data";
 
 const capabilities = [
@@ -85,6 +86,7 @@ export default function Home() {
           <a href="#platform">Platform</a>
           <a href="/demo">Demo</a>
           <ThemeToggle />
+          <AuthNav />
         </nav>
       </header>
 

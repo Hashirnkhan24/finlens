@@ -89,7 +89,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -152,10 +153,15 @@ a {
 }
 
 .nav-links,
-.topbar-actions {
+.topbar-actions,
+.auth-nav {
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+.auth-nav {
+  gap: 8px;
 }
 
 .nav-links a {
@@ -273,6 +279,12 @@ a {
 .button:hover {
   transform: translateY(-2px) scale(1.015);
   box-shadow: var(--shadow);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+  transform: none;
 }
 
 .button.primary {
@@ -1015,6 +1027,199 @@ th {
   color: var(--muted);
 }
 
+.auth-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  gap: 24px;
+  padding: 28px;
+}
+
+.auth-brand {
+  align-self: end;
+}
+
+.onboarding-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 28px;
+}
+
+.onboarding-panel {
+  width: min(100%, 980px);
+  padding: 22px;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+}
+
+.onboarding-copy h1,
+.onboarding-step h2 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.onboarding-copy h1 {
+  max-width: 780px;
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.05;
+}
+
+.onboarding-copy p {
+  max-width: 720px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.step-track {
+  display: flex;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.step-track span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  color: var(--muted);
+  background: var(--inset);
+  font-weight: 720;
+}
+
+.step-track span.active {
+  color: #ffffff;
+  border-color: color-mix(in srgb, var(--brand-blue) 45%, var(--primary));
+  background: var(--active-gradient);
+}
+
+.onboarding-step {
+  display: grid;
+  gap: 18px;
+}
+
+.choice-grid,
+.form-grid,
+.review-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.choice-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.choice-card {
+  min-height: 160px;
+  padding: 16px;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  color: var(--text);
+  background: var(--inset);
+  text-align: left;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.choice-card:hover,
+.choice-card.active {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--primary) 42%, var(--line-soft));
+  box-shadow: var(--shadow-soft);
+}
+
+.choice-card svg {
+  color: var(--brand-blue);
+}
+
+.choice-card strong,
+.choice-card span {
+  display: block;
+}
+
+.choice-card strong {
+  margin-top: 14px;
+  font-size: 20px;
+}
+
+.choice-card span {
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-grid label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.form-grid input,
+.form-grid select {
+  min-height: 44px;
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  color: var(--text);
+  background: var(--panel);
+}
+
+.form-grid input:focus,
+.form-grid select:focus {
+  border-color: color-mix(in srgb, var(--primary) 48%, var(--line-soft));
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.review-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.review-grid div {
+  min-height: 92px;
+  padding: 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  background: var(--inset);
+}
+
+.review-grid span,
+.review-grid strong {
+  display: block;
+}
+
+.review-grid span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.review-grid strong {
+  margin-top: 8px;
+}
+
+.form-error {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(239, 68, 68, 0.34);
+  border-radius: 10px;
+  color: var(--red);
+  background: rgba(239, 68, 68, 0.1);
+}
+
 @media (max-width: 1180px) {
   .landing-hero,
   .workspace-layout {
@@ -1055,6 +1260,10 @@ th {
     justify-content: space-between;
   }
 
+  .auth-nav {
+    flex-wrap: wrap;
+  }
+
   .hero,
   .section,
   .final-cta,
@@ -1077,8 +1286,11 @@ th {
   .metric-grid,
   .status-band,
   .trust-grid,
-  .board-grid,
-  .signal-grid {
+    .board-grid,
+    .signal-grid,
+    .choice-grid,
+    .form-grid,
+    .review-grid {
     grid-template-columns: 1fr;
   }
 
